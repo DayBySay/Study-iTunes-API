@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title></title>
+        <script src="jsonToHtmlTable.js"></script>
+    </head>
+    <body>
+        <table id="test-table"></table>
+        <div id="test-callback"></div>
+        <script type="text/javascript">
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState != 4 || this.status != 200) {
+                    return;
+                }
+
+                console.log(this.response);
+                var json = JSON.parse(this.response).results;
+                JsonToHtmlTable(document.getElementById('test-table'), json);
+            }
+
+            xhr.open('GET', "https://itunes.apple.com/lookup?id=1187265767&country=JP", true);
+            xhr.send();
+        </script>
+    </body>
+</html>
